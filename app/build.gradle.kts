@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.openclassrooms.tajmahal"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.openclassrooms.tajmahal"
@@ -39,7 +39,13 @@ android {
 
 dependencies {
     implementation("androidx.work:work-runtime:2.8.1")
-    val hiltVersion = "2.44"
+  implementation("androidx.legacy:legacy-support-v4:1.0.0")
+  implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
+  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+
+  implementation ("com.squareup.picasso:picasso:2.71828")
+
+  val hiltVersion = "2.44"
 
     //Hilt
     implementation("com.google.dagger:hilt-android:${hiltVersion}")
