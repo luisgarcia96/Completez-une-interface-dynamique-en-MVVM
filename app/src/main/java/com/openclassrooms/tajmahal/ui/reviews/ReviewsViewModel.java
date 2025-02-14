@@ -4,15 +4,39 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.openclassrooms.tajmahal.data.repository.RestaurantRepository;
 import com.openclassrooms.tajmahal.domain.model.Review;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+/**
+ * ViewModel that holds a list of reviews and handles adding new ones.
+ */
+@HiltViewModel // <-- Required so Hilt knows how to create this via @Inject constructor
 public class ReviewsViewModel extends ViewModel {
+
+    private final RestaurantRepository restaurantRepository;
 
     private final MutableLiveData<List<Review>> reviewsLiveData = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<String> errorLiveData = new MutableLiveData<>();
+
+    // Hilt-injected constructor (single argument).
+    @Inject
+    public ReviewsViewModel(RestaurantRepository repository) {
+        this.restaurantRepository = repository;
+
+        // Fetch the initial list of reviews from the repository
+        repository.getReviews().observeForever(reviews -> {
+            // The LiveData from the repository might be posted once,
+            // so we just set it to our local LiveData
+            reviewsLiveData.setValue(reviews);
+        });
+    }
 
     /**
      * Returns the LiveData containing the list of reviews.
@@ -32,7 +56,7 @@ public class ReviewsViewModel extends ViewModel {
      * Adds a new review to the list after validating the input.
      */
     public void addReview(String username, String picture, String comment, int rate) {
-        // Input Validation
+        // Basic input validation
         if (username == null || username.isEmpty()) {
             errorLiveData.setValue("Username cannot be empty.");
             return;
@@ -49,16 +73,12 @@ public class ReviewsViewModel extends ViewModel {
         // Create a new Review object
         Review newReview = new Review(username, picture, comment, rate);
 
-        // Get the current list of reviews
-        List<Review> currentReviews = reviewsLiveData.getValue();
-        if (currentReviews != null) {
-            // Add to the top of the list
-            currentReviews.add(0, newReview);
-            reviewsLiveData.setValue(currentReviews);
-        } else {
-            List<Review> newList = new ArrayList<>();
-            newList.add(newReview);
-            reviewsLiveData.setValue(newList);
-        }
+        // 1) Add it to the fake API via repository
+        restaurantRepository.addReview(newReview);
+
+        // 2) Fetch the updated list
+        restaurantRepository.getReviews().observeForever(updatedReviews ->
+                reviewsLiveData.setValue(updatedReviews)
+        );
     }
 }

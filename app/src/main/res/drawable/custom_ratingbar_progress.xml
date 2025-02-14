@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Empty (outline) stars -->
+    <item
+        android:id="@android:id/background"
+        android:drawable="@drawable/star_outline" />
+
+    <!-- Secondary progress (e.g. “hover” or partial fill) -->
+    <item
+        android:id="@android:id/secondaryProgress"
+        android:drawable="@drawable/star_filled" />
+
+    <!-- Primary progress: actual rating fill -->
+    <item
+        android:id="@android:id/progress"
+        android:drawable="@drawable/star_filled" />
+
+</layer-list>

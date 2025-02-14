@@ -8,7 +8,7 @@
     android:background="@android:color/white"
     android:padding="16dp">
 
-    <!-- Title and Back Button Section -->
+    <!-- Title Bar with Back Button -->
     <LinearLayout
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
@@ -17,15 +17,17 @@
         android:gravity="center_vertical"
         android:paddingBottom="16dp">
 
+        <!-- Back Button -->
         <ImageButton
             android:id="@+id/buttonBack"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_arrow_back"
-            android:contentDescription="Back"
+            android:contentDescription="Back button"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="8dp" />
 
+        <!-- Title -->
         <TextView
             android:id="@+id/textViewTitle"
             android:layout_width="0dp"
@@ -44,7 +46,7 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <!-- First Row: Image, Name, Rating, and Button -->
+        <!-- First Row: Profile Image, Name+Rating, Submit Button -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +54,7 @@
             android:gravity="center_vertical"
             android:paddingBottom="8dp">
 
-            <!-- Profile Image -->
+            <!-- Just a placeholder - or you might load the current user’s pic -->
             <ImageView
                 android:id="@+id/imageViewProfile"
                 android:layout_width="40dp"
@@ -62,7 +64,7 @@
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/circle_background" />
 
-            <!-- Name and Rating -->
+            <!-- Name & Rating in a vertical stack -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -76,8 +78,8 @@
                     android:text="Manon Garcia"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
-                    android:ellipsize="end"
                     android:maxLines="1"
+                    android:ellipsize="end"
                     android:layout_marginEnd="8dp" />
 
                 <RatingBar
@@ -85,9 +87,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:numStars="5"
+                    android:scaleX="1"
+                    android:scaleY="1"
+                    android:progressTint="#FFB800"
                     android:stepSize="1.0"
-                    style="@android:style/Widget.DeviceDefault.RatingBar.Indicator" />
-
+                    />
             </LinearLayout>
 
             <!-- Submit Button -->
@@ -100,12 +104,10 @@
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:background="@drawable/custom_button"
-                android:backgroundTint="@null"
                 android:textColor="@android:color/white" />
-
         </LinearLayout>
 
-        <!-- Second Row: Input Field -->
+        <!-- Second Row: EditText for review comment -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,12 +117,11 @@
                 android:id="@+id/editTextReview"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="Partagez ici les détails de votre expérience"
+                android:hint="Add your review here..."
                 android:background="@drawable/edit_text_border"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
                 android:padding="8dp" />
-
         </LinearLayout>
 
     </LinearLayout>

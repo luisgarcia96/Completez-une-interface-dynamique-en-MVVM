@@ -7,11 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <!--
-        TOP ROW: Horizontal layout with
-        - Profile picture (left)
-        - Username + rating (right)
-    -->
+    <!-- TOP ROW: Profile picture + (Username + Rating) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,18 +15,16 @@
         android:gravity="center_vertical"
         android:padding="8dp">
 
-        <!-- Profile Picture -->
         <ImageView
             android:id="@+id/imageViewProfile"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_profile_placeholder"
-            android:contentDescription="Profile Picture"
+            android:contentDescription="profile pic description"
             android:scaleType="centerCrop"
             android:layout_marginEnd="8dp"
             android:background="@drawable/circle_background" />
 
-        <!-- Name + Rating -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,22 +42,22 @@
                 android:id="@+id/ratingBarReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:isIndicator="true"
                 android:numStars="5"
+                android:isIndicator="true"
                 android:stepSize="1.0"
-                style="@android:style/Widget.DeviceDefault.RatingBar.Indicator" />
+                android:scaleX="1"
+                android:scaleY="1"
+                android:progressTint="#FFB800"
+                style="?android:attr/ratingBarStyleSmall"
+                />
         </LinearLayout>
     </LinearLayout>
 
-    <!--
-        BOTTOM ROW: Full-width comment text
-        (occupies the entire width below the top row)
-    -->
+    <!-- BOTTOM ROW: The comment text, full width -->
     <TextView
         android:id="@+id/textViewComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="This is a review comment." />
-
 </LinearLayout>

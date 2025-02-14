@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,9 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.tajmahal.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * A fragment that displays a list of reviews and allows users to add new reviews.
  */
+@AndroidEntryPoint
 public class ReviewsFragment extends Fragment {
 
     private ReviewsViewModel reviewsViewModel;
@@ -34,25 +38,22 @@ public class ReviewsFragment extends Fragment {
     private Button buttonSubmit;
     private RecyclerView recyclerViewReviews;
     private TextView textViewEmpty;
+    private ImageButton buttonBack;
 
     public ReviewsFragment() {
         // Required empty public constructor
     }
 
-    public static ReviewsFragment newInstance(String param1, String param2) {
-        ReviewsFragment fragment = new ReviewsFragment();
-        Bundle args = new Bundle();
-        // Add parameters to bundle if needed
-        fragment.setArguments(args);
-        return fragment;
+    public static ReviewsFragment newInstance() {
+        return new ReviewsFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize ViewModel
+
+        // Retrieve the Hilt-injected ViewModel
         reviewsViewModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
-        // If you have arguments to process, handle them here
     }
 
     @Override
@@ -61,22 +62,19 @@ public class ReviewsFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState
     ) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_reviews, container, false);
 
-        // Initialize UI components
         editTextReview = view.findViewById(R.id.editTextReview);
         ratingBar = view.findViewById(R.id.ratingBar);
         buttonSubmit = view.findViewById(R.id.buttonSubmit);
         recyclerViewReviews = view.findViewById(R.id.recyclerViewReviews);
-        textViewEmpty = view.findViewById(R.id.textViewEmpty); // Make sure this matches the new TextView ID
+        textViewEmpty = view.findViewById(R.id.textViewEmpty);
+        buttonBack = view.findViewById(R.id.buttonBack);
 
-        // Set up RecyclerView
         reviewsAdapter = new ReviewsAdapter();
         recyclerViewReviews.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewReviews.setAdapter(reviewsAdapter);
 
-        // Set up Submit button click listener
         buttonSubmit.setOnClickListener(v -> submitReview());
 
         return view;
@@ -86,21 +84,17 @@ public class ReviewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // 1) Add the divider for each list item
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 requireContext(),
-                DividerItemDecoration.HORIZONTAL
+                DividerItemDecoration.VERTICAL
         );
         recyclerViewReviews.addItemDecoration(dividerItemDecoration);
 
-        // 2) Observe reviews LiveData
+        // Observe the reviews from the ViewModel
         reviewsViewModel.getReviews().observe(getViewLifecycleOwner(), reviews -> {
-            // Update RecyclerView
             reviewsAdapter.setReviewsList(reviews);
-            // Scroll to top when a new review is added
             recyclerViewReviews.scrollToPosition(0);
 
-            // Handle Empty State
             if (reviews.isEmpty()) {
                 textViewEmpty.setVisibility(View.VISIBLE);
             } else {
@@ -108,14 +102,18 @@ public class ReviewsFragment extends Fragment {
             }
         });
 
-        // 3) Observe error LiveData
+        // Observe errors
         reviewsViewModel.getError().observe(getViewLifecycleOwner(), errorMessage -> {
             if (errorMessage != null && !errorMessage.isEmpty()) {
                 Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
-    }
 
+        // Back button logic
+        buttonBack.setOnClickListener(v ->
+                requireActivity().getSupportFragmentManager().popBackStack()
+        );
+    }
 
     /**
      * Handles the submission of a new review.
@@ -123,40 +121,31 @@ public class ReviewsFragment extends Fragment {
     private void submitReview() {
         String reviewText = editTextReview.getText().toString().trim();
         int rating = (int) ratingBar.getRating();
-        String username = getCurrentUsername(); // Implement or replace with actual user name logic
-        String picture = getCurrentUserProfilePicture(); // Implement if needed
+        String username = getCurrentUsername();
+        String picture = getCurrentUserProfilePicture();
 
         if (TextUtils.isEmpty(reviewText)) {
             Toast.makeText(getContext(), "Please enter a review.", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (rating == 0) {
             Toast.makeText(getContext(), "Please provide a rating.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Add the review via ViewModel
         reviewsViewModel.addReview(username, picture, reviewText, rating);
 
-        // Clear input fields
         editTextReview.setText("");
         ratingBar.setRating(0);
     }
 
-    /**
-     * Retrieves the current user's username.
-     * TODO: Replace with real logic if needed.
-     */
     private String getCurrentUsername() {
-        return "CurrentUser"; // Placeholder
+        // Placeholder
+        return "CurrentUser";
     }
 
-    /**
-     * Retrieves the current user's profile picture URL or path.
-     * TODO: Replace with real logic if needed.
-     */
     private String getCurrentUserProfilePicture() {
-        return ""; // Placeholder (empty string means no picture)
+        // Placeholder
+        return "";
     }
 }

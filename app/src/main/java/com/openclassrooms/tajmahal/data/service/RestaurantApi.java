@@ -1,7 +1,5 @@
 package com.openclassrooms.tajmahal.data.service;
 
-import androidx.lifecycle.LiveData;
-
 import com.openclassrooms.tajmahal.domain.model.Restaurant;
 import com.openclassrooms.tajmahal.domain.model.Review;
 
@@ -50,4 +48,6 @@ public interface RestaurantApi {
      * @return The {@link Restaurant} object containing all the details of the restaurant.
      */
     List<Review> getReviews();
+
+    void addReview(Review review);
 }

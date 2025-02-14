@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -82,8 +83,6 @@
                 app:chipStrokeColor="#CF2F2F"
                 app:textEndPadding="0dp"
                 app:textStartPadding="0dp" />
-
-
         </com.google.android.material.chip.ChipGroup>
 
         <!-- Star Rating Section -->
@@ -101,7 +100,8 @@
 
             <!-- Left side: Rating Text, RatingBar, and Review Count -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.6"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
@@ -118,17 +118,18 @@
 
                 <!-- RatingBar -->
                 <RatingBar
-                    android:layout_width="100dp"
-                    android:layout_height="20dp"
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:rating="4"
                     android:numStars="5"
                     android:isIndicator="true"
-                    android:stepSize="0.5"
-                    android:scaleX="0.4"
-                    android:scaleY="0.4"
+                    android:stepSize="1.0"
+                    android:scaleX="1"
+                    android:scaleY="1"
                     android:progressTint="#FFB800"
+                    style="?android:attr/ratingBarStyleSmall"
                     />
-
 
                 <!-- Review Count -->
                 <TextView
@@ -148,70 +149,71 @@
 
             <!-- Right side-->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="0.4"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
 
-                <!-- Star Rating -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center_horizontal">
+
                     <ProgressBar
                         android:id="@+id/progressBar1"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="4dp"
                         android:layout_marginBottom="8dp"
-                        android:progressDrawable="@drawable/custom_progress_bar"
                         android:max="100"
                         android:progress="100"
+                        android:progressDrawable="@drawable/custom_progress_bar"
                         android:indeterminate="false" />
+
                     <ProgressBar
                         android:id="@+id/progressBar2"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="4dp"
                         android:layout_marginBottom="8dp"
-                        android:progressDrawable="@drawable/custom_progress_bar"
                         android:max="100"
-                        android:progress="75"
+                        android:progressDrawable="@drawable/custom_progress_bar"
                         android:indeterminate="false" />
+
                     <ProgressBar
                         android:id="@+id/progressBar3"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="4dp"
                         android:layout_marginBottom="8dp"
-                        android:progressDrawable="@drawable/custom_progress_bar"
                         android:max="100"
-                        android:progress="65"
+                        android:progressDrawable="@drawable/custom_progress_bar"
                         android:indeterminate="false" />
+
                     <ProgressBar
                         android:id="@+id/progressBar4"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="4dp"
                         android:layout_marginBottom="8dp"
-                        android:progressDrawable="@drawable/custom_progress_bar"
                         android:max="100"
-                        android:progress="25"
+                        android:progressDrawable="@drawable/custom_progress_bar"
                         android:indeterminate="false" />
+
                     <ProgressBar
                         android:id="@+id/progressBar5"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="4dp"
                         android:layout_marginBottom="8dp"
-                        android:progressDrawable="@drawable/custom_progress_bar"
                         android:max="100"
-                        android:progress="35"
+                        android:progressDrawable="@drawable/custom_progress_bar"
                         android:indeterminate="false" />
-
                 </LinearLayout>
 
+                <!-- This TextView we will click on to open ReviewsFragment -->
                 <TextView
                     android:id="@+id/review2_count"
                     android:layout_width="match_parent"
@@ -222,7 +224,6 @@
                     android:textColor="#666666"
                     android:textSize="12sp" />
             </LinearLayout>
-
         </LinearLayout>
 
         <!-- Separator Below Rating Section -->
@@ -274,7 +275,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/separator"
             tools:text="11h30 - 14h30・18h30 - 22h00" />
-
 
         <ImageView
             android:id="@+id/icon_adress"

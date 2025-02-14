@@ -16,6 +16,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * Adapter for displaying each Review item in a RecyclerView.
+ */
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewViewHolder> {
 
     private List<Review> reviewsList;
@@ -66,7 +69,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewVi
             ratingBarReview.setRating(review.getRate());
             textViewComment.setText(review.getComment());
 
-            // Load profile picture using Picasso (optional)
+            // Load profile picture using Picasso if URL is not empty
             if (review.getPicture() != null && !review.getPicture().isEmpty()) {
                 Picasso.get()
                         .load(review.getPicture())
