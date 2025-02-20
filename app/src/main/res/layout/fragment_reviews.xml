@@ -97,15 +97,19 @@
             </LinearLayout>
 
             <!-- Submit Button -->
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.chip.Chip
                 android:id="@+id/buttonSubmit"
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:text="Valider"
-                android:textAllCaps="false"
-                android:paddingHorizontal="16dp"
-                android:background="@drawable/custom_button"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:chipBackgroundColor="#CF2F2F"
+                app:chipCornerRadius="12dp"
+                app:chipStrokeColor="#CF2F2F"
+                app:textEndPadding="8dp"
+                app:textStartPadding="8dp" />
         </LinearLayout>
 
         <!-- Second Row: EditText for review comment -->
