@@ -47,6 +47,7 @@
                 android:layout_marginLeft="-3dp"
                 android:layout_marginRight="-3dp"
                 android:stepSize="1"
+                android:isIndicator="true"
                 android:progressTint="#FFB800"
                 style="@style/Widget.MaterialRatingBar.RatingBar" />
         </LinearLayout>
