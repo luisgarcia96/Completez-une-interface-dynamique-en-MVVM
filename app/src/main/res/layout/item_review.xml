@@ -5,7 +5,8 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingVertical="8dp">
 
     <!-- TOP ROW: Profile picture + (Username + Rating) -->
     <LinearLayout
@@ -15,17 +16,18 @@
         android:gravity="center_vertical"
         android:padding="8dp">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewProfile"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_profile_placeholder"
-            android:contentDescription="profile pic description"
             android:scaleType="centerCrop"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/circle_background" />
+            android:contentDescription="profile pic description"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CircleImageView" />
+
 
         <LinearLayout
+            android:paddingLeft="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -34,22 +36,19 @@
                 android:id="@+id/textViewUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Username"
                 android:textStyle="bold"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:paddingBottom="4dp"/>
 
-            <RatingBar
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
                 android:id="@+id/ratingBarReview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:isIndicator="true"
-                android:stepSize="1.0"
-                android:scaleX="1"
-                android:scaleY="1"
+                android:layout_width="140dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="-3dp"
+                android:layout_marginRight="-3dp"
+                android:stepSize="1"
                 android:progressTint="#FFB800"
-                style="?android:attr/ratingBarStyleSmall"
-                />
+                style="@style/Widget.MaterialRatingBar.RatingBar" />
         </LinearLayout>
     </LinearLayout>
 
